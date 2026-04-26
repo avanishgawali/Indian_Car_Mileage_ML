@@ -32,5 +32,9 @@ def predict():
     except Exception as e:
         return jsonify({'error': str(e)})
 
-if __name__ == '__main__':
-    app.run(debug=True)
+# Integrated Start Block for Render/Deployment
+if __name__ == "__main__":
+    # Get the port from the environment, or default to 5000
+    port = int(os.environ.get("PORT", 5000))
+    # host='0.0.0.0' allows the server to be accessible externally
+    app.run(host='0.0.0.0', port=port)
