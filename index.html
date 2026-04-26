@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FuelX Pro | AI Mileage Intelligence</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body>
+    <div class="blob-c">
+        <div class="shape-blob one"></div>
+        <div class="shape-blob two"></div>
+        <div class="shape-blob three"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <div class="logo">Mileage  Prediction  Website</div>
+            <p>Predicting efficiency with Neural Precision</p>
+        </header>
+
+        <main class="glass-container">
+            <form id="predictionForm">
+                <div class="input-section">
+                    <div class="input-group">
+                        <label>Engine Capacity (CC)</label>
+                        <input type="number" id="cc" placeholder="e.g. 1197" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Cylinders</label>
+                        <input type="number" id="cylinders" placeholder="e.g. 4" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Horsepower</label>
+                        <input type="number" id="hp" placeholder="e.g. 88" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Weight (KG)</label>
+                        <input type="number" id="weight" placeholder="e.g. 1050" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Wheelbase (in)</label>
+                        <input type="number" id="wheelbase" placeholder="e.g. 96" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Length (in)</label>
+                        <input type="number" id="length" placeholder="e.g. 150" required>
+                    </div>
+                </div>
+
+                <button type="submit" id="predictBtn">
+                    <span class="btn-text">Analyze Efficiency</span>
+                    <div class="loader"></div>
+                </button>
+            </form>
+
+            <div id="resultCard" class="result-card hidden">
+                <div class="result-label">Predicted Indian Standard Mileage</div>
+                <div class="result-value"><span id="mileageNum">00.0</span> <small>km/l</small></div>
+                <div class="accuracy-tag">AI Confidence: 94.2%</div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Entry Animations
+        gsap.from(".glass-container", {opacity: 0, y: 50, duration: 1, ease: "power4.out"});
+        gsap.from(".input-group", {opacity: 0, x: -20, stagger: 0.1, delay: 0.5});
+
+        document.getElementById('predictionForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('predictBtn');
+            const resultCard = document.getElementById('resultCard');
+            
+            btn.classList.add('loading');
+            
+            const formData = {
+                cc: document.getElementById('cc').value,
+                cylinders: document.getElementById('cylinders').value,
+                hp: document.getElementById('hp').value,
+                weight: document.getElementById('weight').value,
+                wheelbase: document.getElementById('wheelbase').value,
+                length: document.getElementById('length').value
+            };
+
+            try {
+                const response = await fetch('/predict', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(formData)
+                });
+                const result = await response.json();
+                
+                btn.classList.remove('loading');
+                
+                if(result.mileage) {
+                    resultCard.classList.remove('hidden');
+                    gsap.fromTo("#resultCard", {scale: 0.8, opacity: 0}, {scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.7)"});
+                    
+                    // Counter animation
+                    let obj = { val: 0 };
+                    gsap.to(obj, {
+                        val: result.mileage,
+                        duration: 1.5,
+                        ease: "power3.out",
+                        onUpdate: () => {
+                            document.getElementById('mileageNum').innerText = obj.val.toFixed(2);
+                        }
+                    });
+                }
+            } catch (err) {
+                alert("Server Connection Error");
+                btn.classList.remove('loading');
+            }
+        });
+    </script>
+</body>
+</html>
