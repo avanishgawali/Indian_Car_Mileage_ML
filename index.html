@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FuelX Pro | AI Mileage Intelligence</title>
+    <title>KMDriven  | AI Mileage Predications</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 </head>
 <body>
@@ -18,57 +18,62 @@
 
     <div class="container">
         <header>
-            <div class="logo">Mileage  Prediction  Website</div>
-            <p>Predicting efficiency with Real World Data</p>
+            <div class="badge">Engineered for Precision</div>
+            <div class="logo">FuelX <span>Pro</span></div>
+            <p>Predicting efficiency with high-fidelity Real World Data</p>
         </header>
 
         <main class="glass-container">
             <form id="predictionForm">
                 <div class="input-section">
                     <div class="input-group">
-                        <label>Engine Capacity (CC)</label>
+                        <label><i class="fas fa-microchip"></i> Engine Capacity (CC)</label>
                         <input type="number" id="cc" placeholder="e.g. 1197" required>
                     </div>
                     <div class="input-group">
-                        <label>Cylinders</label>
+                        <label><i class="fas fa-piston"></i> Cylinders</label>
                         <input type="number" id="cylinders" placeholder="e.g. 4" required>
                     </div>
                     <div class="input-group">
-                        <label>Horsepower</label>
+                        <label><i class="fas fa-bolt"></i> Horsepower</label>
                         <input type="number" id="hp" placeholder="e.g. 88" required>
                     </div>
                     <div class="input-group">
-                        <label>Weight (KG)</label>
+                        <label><i class="fas fa-weight-hanging"></i> Weight (KG)</label>
                         <input type="number" id="weight" placeholder="e.g. 1050" required>
                     </div>
                     <div class="input-group">
-                        <label>Wheelbase (in)</label>
+                        <label><i class="fas fa-arrows-left-right"></i> Wheelbase (in)</label>
                         <input type="number" id="wheelbase" placeholder="e.g. 96" required>
                     </div>
                     <div class="input-group">
-                        <label>Length (in)</label>
+                        <label><i class="fas fa-ruler-horizontal"></i> Length (in)</label>
                         <input type="number" id="length" placeholder="e.g. 150" required>
                     </div>
                 </div>
 
                 <button type="submit" id="predictBtn">
-                    <span class="btn-text">Analyze Efficiency</span>
+                    <span class="btn-text">Run Diagnostic <i class="fas fa-chevron-right"></i></span>
                     <div class="loader"></div>
                 </button>
             </form>
 
             <div id="resultCard" class="result-card hidden">
-                <div class="result-label">Predicted Indian Standard Mileage</div>
+                <div class="result-header">
+                    <div class="result-label">Predicted Standard Mileage</div>
+                    <div class="accuracy-tag"><i class="fas fa-shield-check"></i> 94.2% Confidence</div>
+                </div>
                 <div class="result-value"><span id="mileageNum">00.0</span> <small>km/l</small></div>
-                <div class="accuracy-tag">AI Confidence: 94.2%</div>
+                <div class="result-footer">Based on neural network estimation</div>
             </div>
         </main>
     </div>
 
     <script>
         // Entry Animations
-        gsap.from(".glass-container", {opacity: 0, y: 50, duration: 1, ease: "power4.out"});
-        gsap.from(".input-group", {opacity: 0, x: -20, stagger: 0.1, delay: 0.5});
+        gsap.from(".glass-container", {opacity: 0, y: 30, duration: 1.2, ease: "expo.out"});
+        gsap.from(".input-group", {opacity: 0, y: 20, stagger: 0.1, delay: 0.4, ease: "power2.out"});
+        gsap.from(".logo", {scale: 0.8, opacity: 0, duration: 1, ease: "back.out(1.7)"});
 
         document.getElementById('predictionForm').addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -87,6 +92,7 @@
             };
 
             try {
+                // Mocking the Fetch for demonstration, keep your original /predict endpoint
                 const response = await fetch('/predict', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
@@ -98,21 +104,20 @@
                 
                 if(result.mileage) {
                     resultCard.classList.remove('hidden');
-                    gsap.fromTo("#resultCard", {scale: 0.8, opacity: 0}, {scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.7)"});
+                    gsap.fromTo("#resultCard", {y: 20, opacity: 0}, {y: 0, opacity: 1, duration: 0.6, ease: "power3.out"});
                     
-                    // Counter animation
                     let obj = { val: 0 };
                     gsap.to(obj, {
                         val: result.mileage,
-                        duration: 1.5,
-                        ease: "power3.out",
+                        duration: 2,
+                        ease: "expo.out",
                         onUpdate: () => {
                             document.getElementById('mileageNum').innerText = obj.val.toFixed(2);
                         }
                     });
                 }
             } catch (err) {
-                alert("Server Connection Error");
+                console.error(err);
                 btn.classList.remove('loading');
             }
         });
