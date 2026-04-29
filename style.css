@@ -1,135 +1,88 @@
 :root {
-    --primary: #6366f1;
-    --neon-blue: #00f2ff;
-    --neon-purple: #bc13fe;
-    --dark-bg: #020617;
-    --glass-bg: rgba(15, 23, 42, 0.8);
-    --border-color: rgba(255, 255, 255, 0.1);
-    --font-main: 'Plus Jakarta Sans', sans-serif;
-    --font-heading: 'Space Grotesk', sans-serif;
+    --primary: #ff3e3e; /* Racing Red */
+    --accent: #ffffff;
+    --bg: #0a0a0a;
+    --card-bg: rgba(20, 20, 20, 0.9);
+    --border: rgba(255, 255, 255, 0.1);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-
 body {
-    background-color: var(--dark-bg);
+    background-color: var(--bg);
     color: white;
-    min-height: 100vh;
-    font-family: var(--font-main);
+    font-family: 'Inter', sans-serif;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
-/* --- Immersive Background --- */
-.visual-bg { position: fixed; inset: 0; z-index: -1; overflow: hidden; }
-.grid-overlay {
+/* --- HUD Overlays --- */
+.scanlines {
     position: absolute; inset: 0;
-    background-image: linear-gradient(var(--border-color) 1px, transparent 1px), linear-gradient(90deg, var(--border-color) 1px, transparent 1px);
-    background-size: 50px 50px;
-    mask-image: radial-gradient(ellipse at center, black, transparent 80%);
-    opacity: 0.2;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    background-size: 100% 4px, 3px 100%;
+    z-index: 100; pointer-events: none; opacity: 0.3;
 }
-.noise { position: absolute; inset: 0; background: url('https://grainy-gradients.vercel.app/noise.svg'); opacity: 0.2; pointer-events: none; }
-.blob-c { filter: blur(120px); width: 100%; height: 100%; }
-.shape-blob { position: absolute; width: 600px; height: 600px; border-radius: 50%; opacity: 0.4; animation: float 20s infinite alternate; }
-.one { background: var(--primary); top: -20%; left: -10%; }
-.two { background: var(--neon-purple); bottom: -20%; right: -10%; }
-.three { background: var(--neon-blue); top: 30%; left: 30%; width: 400px; height: 400px; opacity: 0.2; }
-
-@keyframes float { from { transform: translate(0,0) scale(1); } to { transform: translate(100px, 50px) scale(1.1); } }
-
-/* --- Container & Header --- */
-.container { width: 95%; max-width: 800px; z-index: 10; padding: 60px 0; }
-header { text-align: center; margin-bottom: 50px; }
-
-.status-pill {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: rgba(0,0,0,0.5); border: 1px solid var(--border-color);
-    padding: 6px 16px; border-radius: 100px; font-size: 0.65rem;
-    text-transform: uppercase; letter-spacing: 2px; color: var(--neon-blue);
-}
-.dot { width: 6px; height: 6px; background: var(--neon-blue); border-radius: 50%; box-shadow: 0 0 10px var(--neon-blue); animation: pulse 2s infinite; }
-@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-
-.logo { font-family: var(--font-heading); font-size: 4rem; font-weight: 700; letter-spacing: -2px; line-height: 1; margin: 15px 0; }
-.logo span { color: transparent; -webkit-text-stroke: 1.5px white; }
-.tagline { opacity: 0.5; font-size: 1.1rem; font-weight: 300; }
-
-/* --- The Main Card --- */
-.main-card {
-    position: relative; background: var(--glass-bg);
-    backdrop-filter: blur(30px); border: 1px solid var(--border-color);
-    border-radius: 40px; padding: 50px;
-    box-shadow: 0 50px 100px -20px rgba(0,0,0,0.8);
+.background-vignette {
+    position: absolute; inset: 0;
+    background: radial-gradient(circle, transparent 20%, black 100%);
+    z-index: -1;
 }
 
+/* --- Layout --- */
+.container { width: 90%; max-width: 900px; z-index: 10; }
+header { text-align: left; margin-bottom: 20px; border-left: 4px solid var(--primary); padding-left: 20px; }
+.telemetry-bar { font-size: 0.65rem; color: var(--primary); display: flex; gap: 20px; font-family: 'Orbitron'; margin-bottom: 5px; }
+.logo { font-family: 'Orbitron'; font-size: 3rem; font-weight: 900; letter-spacing: -2px; }
+.logo span { color: var(--primary); }
+header p { opacity: 0.5; font-size: 0.8rem; letter-spacing: 2px; }
+
+/* --- Diagnostic Frame --- */
+.diagnostic-frame {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    padding: 50px;
+    position: relative;
+    box-shadow: 0 0 50px rgba(0,0,0,1);
+}
+.corner { position: absolute; width: 20px; height: 20px; border: 2px solid var(--primary); }
+.tl { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+.tr { top: -1px; right: -1px; border-left: none; border-bottom: none; }
+.bl { bottom: -1px; left: -1px; border-right: none; border-top: none; }
+.br { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+
+/* --- Inputs --- */
 .input-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; }
-
-.input-box label {
-    display: flex; align-items: center; gap: 10px;
-    font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
-    letter-spacing: 1px; color: rgba(255,255,255,0.6); margin-bottom: 12px;
-}
-.input-box i { color: var(--neon-blue); }
-
+.field label { font-size: 0.65rem; font-weight: 700; color: var(--primary); font-family: 'Orbitron'; display: block; margin-bottom: 10px; }
+.input-wrapper { position: relative; display: flex; align-items: center; }
 input {
-    width: 100%; background: rgba(0,0,0,0.3); border: 1px solid var(--border-color);
-    padding: 18px; border-radius: 18px; color: white; font-size: 1.1rem;
-    transition: all 0.3s;
+    width: 100%; background: #000; border: 1px solid var(--border);
+    padding: 15px; border-radius: 4px; color: white; font-family: 'Orbitron'; font-size: 1.2rem;
 }
-input:focus {
-    outline: none; border-color: var(--neon-blue);
-    background: rgba(255,255,255,0.05);
-    box-shadow: 0 0 30px rgba(0, 242, 255, 0.15);
+input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 15px rgba(255, 62, 62, 0.2); }
+.unit-tag { position: absolute; right: 15px; font-size: 0.6rem; opacity: 0.4; font-weight: 900; }
+
+/* --- Button --- */
+button {
+    width: 100%; margin-top: 40px; padding: 25px; background: var(--primary);
+    border: none; color: white; font-family: 'Orbitron'; font-weight: 900;
+    cursor: pointer; transition: 0.3s; clip-path: polygon(5% 0, 100% 0, 95% 100%, 0% 100%);
 }
+button:hover { background: #ff5e5e; letter-spacing: 2px; }
 
-/* --- Neon Button --- */
-.glow-btn {
-    width: 100%; margin-top: 40px; padding: 22px; border-radius: 20px; border: none;
-    background: white; color: black; font-weight: 800; font-size: 1rem;
-    cursor: pointer; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    position: relative; overflow: hidden;
-}
-
-.glow-btn:hover {
-    transform: scale(1.02);
-    box-shadow: 0 0 40px rgba(255,255,255,0.3);
-}
-
-.btn-content { display: flex; justify-content: center; align-items: center; gap: 12px; }
-.btn-icon { font-size: 1.2rem; transition: transform 0.4s; }
-.glow-btn:hover .btn-icon { transform: rotate(180deg); }
-
-/* --- Result Area --- */
-.result-section { margin-top: 40px; }
-.divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border-color), transparent); margin-bottom: 40px; }
-
-.result-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-.result-meta .label { font-size: 0.75rem; letter-spacing: 3px; opacity: 0.5; }
-.conf-badge { background: #064e3b; color: #34d399; font-size: 0.65rem; font-weight: 700; padding: 4px 12px; border-radius: 100px; }
-
-.value-container { display: flex; align-items: baseline; gap: 15px; margin-bottom: 10px; }
-.neon-text {
-    font-size: 6rem; font-weight: 800; font-family: var(--font-heading);
-    background: linear-gradient(to bottom, #fff, #94a3b8);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 0 20px rgba(255,255,255,0.3));
-}
-.unit { font-size: 2rem; font-weight: 300; opacity: 0.4; }
-.disclaimer { font-size: 0.7rem; opacity: 0.3; }
-
-/* Loader Fix */
-.loader { display: none; width: 25px; height: 25px; border: 3px solid #000; border-top-color: transparent; border-radius: 50%; animation: spin 0.6s linear infinite; margin: 0 auto; }
-@keyframes spin { to { transform: rotate(360deg); } }
-button.loading .btn-content { display: none; }
-button.loading .loader { display: block; }
+/* --- Result --- */
+.result-card { margin-top: 50px; border-top: 1px solid var(--border); padding-top: 30px; }
+.result-header { display: flex; justify-content: space-between; font-size: 0.7rem; font-family: 'Orbitron'; margin-bottom: 20px; }
+.status-indicator { color: #00ff88; }
+.value-display { text-align: center; font-family: 'Orbitron'; margin-bottom: 15px; }
+#mileageNum { font-size: 6rem; font-weight: 900; line-height: 1; color: white; }
+.value-display small { font-size: 2rem; color: var(--primary); }
+.result-footer { text-align: center; font-size: 0.6rem; opacity: 0.4; letter-spacing: 3px; }
 
 .hidden { display: none; }
-
-@media (max-width: 600px) {
-    .main-card { padding: 30px; }
-    .logo { font-size: 3rem; }
-    .neon-text { font-size: 4rem; }
-}
+.loader { display: none; width: 30px; height: 30px; border: 4px solid #fff; border-bottom-color: transparent; border-radius: 50%; animation: rotation 1s linear infinite; margin: 0 auto; }
+@keyframes rotation { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+button.loading .btn-text { display: none; }
+button.loading .loader { display: block; }
