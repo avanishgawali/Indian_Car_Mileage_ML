@@ -3,17 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KM DRIVEN | AI Mileage Predication</title>
+    <title>FuelX Pro | AI Mileage Intelligence</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 </head>
 <body>
 
-    <!-- Noise texture overlay -->
     <div class="noise"></div>
-
-    <!-- Animated background -->
     <div class="bg-grid"></div>
     <div class="bg-glow glow-1"></div>
     <div class="bg-glow glow-2"></div>
@@ -37,58 +34,96 @@
                     </svg>
                 </div>
                 <div>
-                    <div class="brand-name">KM <span>DRIVEN</span></div>
-                    <div class="brand-tagline">AI Mileage Predication</div>
+                    <div class="brand-name">FUELX <span>PRO</span></div>
+                    <div class="brand-tagline">AI Mileage Intelligence</div>
                 </div>
             </div>
             <nav class="header-nav">
-                <span class="nav-tag">v2.4.1</span>
                 <div class="status-dot"></div>
                 <span class="nav-tag">Model Active</span>
+                <span class="nav-tag">v2.4.1</span>
             </nav>
         </div>
     </header>
 
-    <!-- Main Content -->
+    <!-- Main -->
     <main class="main-layout">
 
-        <!-- Left: Info Panel -->
+        <!-- Left Panel -->
         <aside class="info-panel">
-            <div class="panel-label">SYSTEM INFO</div>
-            <div class="info-stats">
-                <div class="stat-item">
-                </div>
-                <div class="stat-item">
-                    <div class="stat-val">12K<span>+</span></div>
-                    <div class="stat-desc">Data Points</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-val">R²<span>=</span>0.94</div>
-                    <div class="stat-desc">Regression Score</div>
-                </div>
-            </div>
 
-            <div class="panel-label" style="margin-top: 36px;">FEATURES USED</div>
+            <div class="panel-label">FEATURES USED</div>
             <div class="feature-list">
-                <div class="feature-chip active">Engine CC</div>
-                <div class="feature-chip active">Cylinders</div>
-                <div class="feature-chip active">Horsepower</div>
-                <div class="feature-chip active">Weight (kg)</div>
-                <div class="feature-chip active">Wheelbase</div>
-                <div class="feature-chip active">Length</div>
+                <div class="feature-chip">Engine CC</div>
+                <div class="feature-chip">Cylinders</div>
+                <div class="feature-chip">Horsepower</div>
+                <div class="feature-chip">Weight (kg)</div>
+                <div class="feature-chip">Wheelbase</div>
+                <div class="feature-chip">Length</div>
             </div>
 
-            <div class="panel-label" style="margin-top: 36px;">ALGORITHM</div>
-            <div class="algo-badge">
-                <div class="algo-icon">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#22d3ee" stroke-width="1.5"/><path d="M2 17L12 22L22 17" stroke="#22d3ee" stroke-width="1.5"/><path d="M2 12L12 17L22 12" stroke="#22d3ee" stroke-width="1.5"/></svg>
+            <div class="panel-label" style="margin-top:32px;">ML MODEL</div>
+            <div class="model-card">
+                <div class="model-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="url(#ml-g)" stroke-width="1.8" stroke-linejoin="round"/>
+                        <path d="M2 17L12 22L22 17" stroke="url(#ml-g)" stroke-width="1.8" stroke-linejoin="round"/>
+                        <path d="M2 12L12 17L22 12" stroke="url(#ml-g)" stroke-width="1.8" stroke-linejoin="round"/>
+                        <defs>
+                            <linearGradient id="ml-g" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#22d3ee"/><stop offset="1" stop-color="#6366f1"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
                 </div>
-                Random Forest Regressor
+                <div class="model-info">
+                    <div class="model-name">Random Forest</div>
+                    <div class="model-sub">Regressor · Scikit-learn</div>
+                </div>
+            </div>
+
+            <div class="model-stats">
+                <div class="mstat">
+                    <div class="mstat-val">94.2%</div>
+                    <div class="mstat-key">Accuracy</div>
+                </div>
+                <div class="mstat-divider"></div>
+                <div class="mstat">
+                    <div class="mstat-val">0.94</div>
+                    <div class="mstat-key">R² Score</div>
+                </div>
+                <div class="mstat-divider"></div>
+                <div class="mstat">
+                    <div class="mstat-val">100</div>
+                    <div class="mstat-key">Trees</div>
+                </div>
+            </div>
+
+            <div class="panel-separator"></div>
+
+            <div class="panel-label">HYPERPARAMETERS</div>
+            <div class="hparam-list">
+                <div class="hparam">
+                    <span class="hparam-key">max_depth</span>
+                    <span class="hparam-val">None</span>
+                </div>
+                <div class="hparam">
+                    <span class="hparam-key">min_samples_split</span>
+                    <span class="hparam-val">2</span>
+                </div>
+                <div class="hparam">
+                    <span class="hparam-key">criterion</span>
+                    <span class="hparam-val">squared_error</span>
+                </div>
+                <div class="hparam">
+                    <span class="hparam-key">bootstrap</span>
+                    <span class="hparam-val">True</span>
+                </div>
             </div>
 
             <div class="panel-separator"></div>
             <div class="panel-note">
-                Predictions are calibrated for Indian road conditions and ARAI-equivalent cycle testing standards.
+                Calibrated for Indian road conditions &amp; ARAI-equivalent testing standards.
             </div>
         </aside>
 
@@ -96,17 +131,14 @@
         <section class="form-panel">
             <div class="form-header">
                 <div class="form-title">Vehicle Parameters</div>
-                <div class="form-subtitle">Enter your car's specifications to get an AI-powered mileage estimate</div>
+                <div class="form-subtitle">Enter your car's specifications for an AI-powered mileage estimate</div>
             </div>
 
             <form id="predictionForm">
                 <div class="input-grid">
 
                     <div class="input-block">
-                        <label for="cc">
-                            <span class="label-icon">⚙</span>
-                            Engine Capacity
-                        </label>
+                        <label for="cc"><span class="label-icon">⚙</span>Engine Capacity</label>
                         <div class="input-wrap">
                             <input type="number" id="cc" placeholder="1197" required autocomplete="off">
                             <span class="input-unit">cc</span>
@@ -115,10 +147,7 @@
                     </div>
 
                     <div class="input-block">
-                        <label for="cylinders">
-                            <span class="label-icon">🔩</span>
-                            Cylinders
-                        </label>
+                        <label for="cylinders"><span class="label-icon">🔩</span>Cylinders</label>
                         <div class="input-wrap">
                             <input type="number" id="cylinders" placeholder="4" required autocomplete="off">
                             <span class="input-unit">cyl</span>
@@ -127,10 +156,7 @@
                     </div>
 
                     <div class="input-block">
-                        <label for="hp">
-                            <span class="label-icon">⚡</span>
-                            Horsepower
-                        </label>
+                        <label for="hp"><span class="label-icon">⚡</span>Horsepower</label>
                         <div class="input-wrap">
                             <input type="number" id="hp" placeholder="88" required autocomplete="off">
                             <span class="input-unit">bhp</span>
@@ -139,10 +165,7 @@
                     </div>
 
                     <div class="input-block">
-                        <label for="weight">
-                            <span class="label-icon">⚖</span>
-                            Kerb Weight
-                        </label>
+                        <label for="weight"><span class="label-icon">⚖</span>Kerb Weight</label>
                         <div class="input-wrap">
                             <input type="number" id="weight" placeholder="1050" required autocomplete="off">
                             <span class="input-unit">kg</span>
@@ -151,10 +174,7 @@
                     </div>
 
                     <div class="input-block">
-                        <label for="wheelbase">
-                            <span class="label-icon">📐</span>
-                            Wheelbase
-                        </label>
+                        <label for="wheelbase"><span class="label-icon">📐</span>Wheelbase</label>
                         <div class="input-wrap">
                             <input type="number" id="wheelbase" placeholder="96" required autocomplete="off">
                             <span class="input-unit">in</span>
@@ -163,10 +183,7 @@
                     </div>
 
                     <div class="input-block">
-                        <label for="length">
-                            <span class="label-icon">📏</span>
-                            Vehicle Length
-                        </label>
+                        <label for="length"><span class="label-icon">📏</span>Vehicle Length</label>
                         <div class="input-wrap">
                             <input type="number" id="length" placeholder="150" required autocomplete="off">
                             <span class="input-unit">in</span>
@@ -179,12 +196,12 @@
                 <button type="submit" id="predictBtn">
                     <div class="btn-inner">
                         <div class="btn-text">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="margin-right:8px;vertical-align:middle"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z" fill="currentColor"/></svg>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="margin-right:8px;flex-shrink:0"><path d="M5 3l14 9-14 9V3z" fill="currentColor"/></svg>
                             Run Prediction
                         </div>
                         <div class="btn-loader">
                             <div class="loader-ring"></div>
-                            <span>Analyzing...</span>
+                            <span>Analyzing…</span>
                         </div>
                     </div>
                     <div class="btn-shimmer"></div>
@@ -192,29 +209,30 @@
             </form>
         </section>
 
-        <!-- Right: Result Panel -->
-        <aside class="result-panel" id="resultPanel">
+        <!-- Right: Result -->
+        <aside class="result-panel">
+
             <div class="result-idle" id="resultIdle">
                 <div class="idle-icon">
-                    <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="40" cy="40" r="35" stroke="rgba(99,102,241,0.2)" stroke-width="1"/>
-                        <circle cx="40" cy="40" r="25" stroke="rgba(34,211,238,0.15)" stroke-width="1" stroke-dasharray="4 4"/>
-                        <circle cx="40" cy="40" r="5" fill="rgba(99,102,241,0.4)"/>
-                        <path d="M40 5 L40 15" stroke="rgba(34,211,238,0.4)" stroke-width="1.5" stroke-linecap="round"/>
-                        <path d="M40 65 L40 75" stroke="rgba(34,211,238,0.4)" stroke-width="1.5" stroke-linecap="round"/>
-                        <path d="M5 40 L15 40" stroke="rgba(34,211,238,0.4)" stroke-width="1.5" stroke-linecap="round"/>
-                        <path d="M65 40 L75 40" stroke="rgba(34,211,238,0.4)" stroke-width="1.5" stroke-linecap="round"/>
+                    <svg viewBox="0 0 80 80" fill="none">
+                        <circle cx="40" cy="40" r="35" stroke="rgba(99,102,241,0.3)" stroke-width="1"/>
+                        <circle cx="40" cy="40" r="25" stroke="rgba(34,211,238,0.2)" stroke-width="1" stroke-dasharray="5 4"/>
+                        <circle cx="40" cy="40" r="5" fill="rgba(99,102,241,0.55)"/>
+                        <line x1="40" y1="5"  x2="40" y2="15" stroke="rgba(34,211,238,0.55)" stroke-width="1.5" stroke-linecap="round"/>
+                        <line x1="40" y1="65" x2="40" y2="75" stroke="rgba(34,211,238,0.55)" stroke-width="1.5" stroke-linecap="round"/>
+                        <line x1="5"  y1="40" x2="15" y2="40" stroke="rgba(34,211,238,0.55)" stroke-width="1.5" stroke-linecap="round"/>
+                        <line x1="65" y1="40" x2="75" y2="40" stroke="rgba(34,211,238,0.55)" stroke-width="1.5" stroke-linecap="round"/>
                     </svg>
                 </div>
                 <div class="idle-text">Awaiting Input</div>
-                <div class="idle-sub">Fill parameters and run prediction to see results here</div>
+                <div class="idle-sub">Fill in the parameters and click Run Prediction</div>
             </div>
 
             <div class="result-data hidden" id="resultData">
                 <div class="result-header-label">PREDICTED MILEAGE</div>
 
                 <div class="mileage-display">
-                    <div class="mileage-number" id="mileageNum">00.0</div>
+                    <div class="mileage-number" id="mileageNum">0.0</div>
                     <div class="mileage-unit">km/l</div>
                 </div>
 
@@ -227,15 +245,12 @@
                         <div class="mileage-bar-marker" id="mileageMarker"></div>
                     </div>
                     <div class="mileage-range">
-                        <span>8</span><span style="margin-left:auto">25+ km/l</span>
+                        <span>8 km/l</span><span style="margin-left:auto">25+ km/l</span>
                     </div>
                 </div>
 
                 <div class="result-tags">
-                    <div class="rtag green">
-                        <span class="rtag-dot"></span>
-                        AI Confidence: 100%
-                    </div>
+                    <div class="rtag green"><span class="rtag-dot"></span>AI Confidence: 94.2%</div>
                     <div class="rtag blue" id="categoryTag">—</div>
                 </div>
 
@@ -250,10 +265,6 @@
                             <span>Engine Efficiency</span>
                             <div class="bbar"><div class="bbar-fill" id="engBar"></div></div>
                         </div>
-                        <div class="bfactor">
-                            <span>Aerodynamic Form</span>
-                            <div class="bbar"><div class="bbar-fill" id="aeroBar"></div></div>
-                        </div>
                     </div>
                 </div>
 
@@ -263,19 +274,26 @@
 
     </main>
 
-    <!-- Toast -->
     <div class="toast" id="toast">
         <span class="toast-icon">✗</span>
         <span id="toastMsg">Server connection failed</span>
     </div>
 
     <script>
-        // Entry animations
-        gsap.from(".site-header", { y: -60, opacity: 0, duration: 0.8, ease: "power3.out" });
-        gsap.from(".info-panel", { x: -40, opacity: 0, duration: 0.9, delay: 0.2, ease: "power3.out" });
-        gsap.from(".form-panel", { y: 40, opacity: 0, duration: 0.9, delay: 0.3, ease: "power3.out" });
-        gsap.from(".result-panel", { x: 40, opacity: 0, duration: 0.9, delay: 0.4, ease: "power3.out" });
-        gsap.from(".input-block", { opacity: 0, y: 20, stagger: 0.08, delay: 0.6, duration: 0.5 });
+        // ── Entry: smooth staggered timeline ──
+        const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
+        tl.from(".site-header",            { y: -50, opacity: 0, duration: 1 })
+          .from(".info-panel",             { x: -45, opacity: 0, duration: 0.9 }, "-=0.55")
+          .from(".form-panel",             { y:  40, opacity: 0, duration: 0.9 }, "-=0.8")
+          .from(".result-panel",           { x:  45, opacity: 0, duration: 0.9 }, "-=0.8")
+          .from(".input-block",            { opacity: 0, y: 18, stagger: 0.07, duration: 0.55 }, "-=0.55")
+          .from(".feature-chip",           { opacity: 0, scale: 0.8, stagger: 0.055, duration: 0.4, ease: "back.out(1.8)" }, "-=0.65")
+          .from(".model-card",             { opacity: 0, y: 14, duration: 0.45 }, "-=0.35")
+          .from(".model-stats",            { opacity: 0, y: 14, duration: 0.45 }, "-=0.25")
+          .from(".hparam",                 { opacity: 0, x: -12, stagger: 0.06, duration: 0.38 }, "-=0.3");
+
+        // ── Utils ──
+        const clamp = (v, lo, hi) => Math.min(Math.max(v, lo), hi);
 
         function showToast(msg) {
             const t = document.getElementById('toast');
@@ -285,96 +303,115 @@
         }
 
         function getMileageCategory(m) {
-            if (m >= 20) return { label: "⭐ Excellent Efficiency", cls: "green" };
-            if (m >= 15) return { label: "👍 Good Efficiency", cls: "blue" };
-            if (m >= 10) return { label: "⚠ Average Efficiency", cls: "orange" };
-            return { label: "🔴 Poor Efficiency", cls: "red" };
+            if (m >= 20) return { label: "⭐ Excellent Efficiency", cls: "green"  };
+            if (m >= 15) return { label: "👍 Good Efficiency",      cls: "blue"   };
+            if (m >= 10) return { label: "⚠ Average Efficiency",   cls: "orange" };
+            return            { label: "🔴 Poor Efficiency",        cls: "red"    };
         }
 
-        function clamp(v, min, max) { return Math.min(Math.max(v, min), max); }
-
+        // ── Form submit ──
         document.getElementById('predictionForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = document.getElementById('predictBtn');
             btn.classList.add('loading');
 
-            const cc = +document.getElementById('cc').value;
-            const cylinders = +document.getElementById('cylinders').value;
-            const hp = +document.getElementById('hp').value;
-            const weight = +document.getElementById('weight').value;
-            const wheelbase = +document.getElementById('wheelbase').value;
-            const length = +document.getElementById('length').value;
-
-            const formData = { cc, cylinders, hp, weight, wheelbase, length };
+            const inputs = {
+                cc:        +document.getElementById('cc').value,
+                cylinders: +document.getElementById('cylinders').value,
+                hp:        +document.getElementById('hp').value,
+                weight:    +document.getElementById('weight').value,
+                wheelbase: +document.getElementById('wheelbase').value,
+                length:    +document.getElementById('length').value
+            };
 
             try {
-                const response = await fetch('/predict', {
+                const res  = await fetch('/predict', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(formData)
+                    body: JSON.stringify(inputs)
                 });
-                const result = await response.json();
+                const data = await res.json();
                 btn.classList.remove('loading');
-
-                if (result.mileage) {
-                    showResult(result.mileage, formData);
-                } else {
-                    showToast("Prediction failed. Check your inputs.");
-                }
-            } catch (err) {
+                if (data.mileage) showResult(data.mileage, inputs);
+                else showToast("Prediction failed — check your inputs.");
+            } catch {
                 btn.classList.remove('loading');
-                showToast("Server connection error. Is backend running?");
+                showToast("Server connection error. Is the backend running?");
             }
         });
 
+        // ── Show result ──
         function showResult(mileage, inputs) {
-            document.getElementById('resultIdle').classList.add('hidden');
-            const rd = document.getElementById('resultData');
-            rd.classList.remove('hidden');
+            const idle = document.getElementById('resultIdle');
+            const rd   = document.getElementById('resultData');
 
-            gsap.fromTo(rd, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" });
+            gsap.to(idle, {
+                opacity: 0, y: -18, duration: 0.38, ease: "power2.in",
+                onComplete() {
+                    idle.classList.add('hidden');
+                    rd.classList.remove('hidden');
 
-            // Animate mileage number
-            let obj = { val: 0 };
-            gsap.to(obj, {
-                val: mileage,
-                duration: 1.8,
-                ease: "power3.out",
-                onUpdate: () => {
-                    document.getElementById('mileageNum').textContent = obj.val.toFixed(1);
+                    // Staggered section reveal
+                    gsap.set(rd, { opacity: 0 });
+                    const rtl = gsap.timeline({ defaults: { ease: "expo.out" } });
+                    rtl.to(rd,                        { opacity: 1, duration: 0.25 })
+                       .from(".result-header-label",  { opacity: 0, y: 12, duration: 0.45 }, "-=0.1")
+                       .from(".mileage-display",      { opacity: 0, y: 22, duration: 0.55 }, "-=0.3")
+                       .from(".mileage-bar-wrap",     { opacity: 0, y: 14, duration: 0.45 }, "-=0.3")
+                       .from(".result-tags",          { opacity: 0, y: 12, duration: 0.4  }, "-=0.25")
+                       .from(".result-breakdown",     { opacity: 0, y: 12, duration: 0.4  }, "-=0.2")
+                       .from(".reset-btn",            { opacity: 0, y:  8, duration: 0.35 }, "-=0.15");
+
+                    // Mileage counter
+                    gsap.to({ val: 0 }, {
+                        val: mileage, duration: 1.9, ease: "power2.out",
+                        onUpdate() {
+                            document.getElementById('mileageNum').textContent = this.targets()[0].val.toFixed(1);
+                        }
+                    });
+
+                    // Mileage bar & marker
+                    const pct = clamp(((mileage - 8) / 17) * 100, 0, 100);
+                    gsap.to('#mileageBar',    { width: pct + '%', duration: 1.5, delay: 0.35, ease: "power2.out" });
+                    gsap.to('#mileageMarker', { left:  pct + '%', duration: 1.5, delay: 0.35, ease: "power2.out" });
+
+                    // Category
+                    const cat = getMileageCategory(mileage);
+                    const tag = document.getElementById('categoryTag');
+                    tag.textContent = cat.label;
+                    tag.className   = 'rtag ' + cat.cls;
+
+                    // Factor bars
+                    const ptw = clamp(100 - (inputs.hp / inputs.weight * 1000) * 2, 20, 95);
+                    const eng = clamp(100 - (inputs.cc / 200), 20, 95);
+                    gsap.to('#ptwBar', { width: ptw + '%', duration: 1.3, delay: 0.6,  ease: "power2.out" });
+                    gsap.to('#engBar', { width: eng + '%', duration: 1.3, delay: 0.78, ease: "power2.out" });
                 }
             });
-
-            // Mileage bar (8 to 25 range)
-            const pct = clamp(((mileage - 8) / 17) * 100, 0, 100);
-            setTimeout(() => {
-                document.getElementById('mileageBar').style.width = pct + '%';
-                document.getElementById('mileageMarker').style.left = pct + '%';
-            }, 400);
-
-            // Category
-            const cat = getMileageCategory(mileage);
-            const catTag = document.getElementById('categoryTag');
-            catTag.textContent = cat.label;
-            catTag.className = 'rtag ' + cat.cls;
-
-            // Analysis bars (estimated from inputs)
-            const ptw = clamp(100 - (inputs.hp / inputs.weight * 1000) * 2, 20, 95);
-            const eng = clamp(100 - (inputs.cc / 200), 20, 95);
-            const aero = clamp(100 - (inputs.length / 2.5), 20, 95);
-
-            setTimeout(() => {
-                document.getElementById('ptwBar').style.width = ptw + '%';
-                document.getElementById('engBar').style.width = eng + '%';
-                document.getElementById('aeroBar').style.width = aero + '%';
-            }, 600);
         }
 
+        // ── Reset ──
         document.getElementById('resetBtn').addEventListener('click', () => {
-            document.getElementById('resultData').classList.add('hidden');
-            document.getElementById('resultIdle').classList.remove('hidden');
-            document.getElementById('predictionForm').reset();
-            gsap.from(".input-block", { opacity: 0, y: 10, stagger: 0.06, duration: 0.4 });
+            const rd   = document.getElementById('resultData');
+            const idle = document.getElementById('resultIdle');
+
+            gsap.to(rd, {
+                opacity: 0, y: 18, duration: 0.32, ease: "power2.in",
+                onComplete() {
+                    rd.classList.add('hidden');
+                    ['mileageBar','mileageMarker','ptwBar','engBar'].forEach(id => {
+                        const el = document.getElementById(id);
+                        el.style.width = id.includes('Marker') ? '' : '0';
+                        if (id === 'mileageMarker') el.style.left = '0';
+                    });
+                    document.getElementById('mileageNum').textContent = '0.0';
+
+                    idle.classList.remove('hidden');
+                    gsap.fromTo(idle, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.5, ease: "expo.out" });
+                    document.getElementById('predictionForm').reset();
+                    gsap.from(".input-block", { opacity: 0, y: 10, stagger: 0.06, duration: 0.42, ease: "power2.out" });
+                }
+            });
         });
     </script>
 </body>
