@@ -1,88 +1,135 @@
 :root {
-    --primary: #ff3e3e; /* Racing Red */
-    --accent: #ffffff;
-    --bg: #0a0a0a;
-    --card-bg: rgba(20, 20, 20, 0.9);
-    --border: rgba(255, 255, 255, 0.1);
+    --bg: #050505;
+    --card: rgba(20, 20, 25, 0.6);
+    --accent: #00f2ff; /* Neon Cyan */
+    --primary: #7000ff; /* Electric Purple */
+    --border: rgba(255, 255, 255, 0.08);
+    --text-dim: rgba(255, 255, 255, 0.5);
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+
 body {
-    background-color: var(--bg);
+    background: var(--bg);
     color: white;
-    font-family: 'Inter', sans-serif;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
+    padding: 40px 20px;
+}
+
+/* --- The 2026 Grain Texture --- */
+.grain-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: url('https://grainy-gradients.vercel.app/noise.svg');
+    opacity: 0.05;
+    pointer-events: none;
+    z-index: 999;
+}
+
+.dashboard { width: 100%; max-width: 1100px; }
+
+header.hero-section {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
+    margin-bottom: 40px;
+}
+
+.logo { font-weight: 800; font-size: 1.5rem; letter-spacing: 2px; }
+.logo span { color: var(--accent); }
+
+/* --- Bento Grid --- */
+.bento-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 20px;
+}
+
+.glass-card {
+    background: var(--card);
+    backdrop-filter: blur(15px);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 30px;
+    position: relative;
     overflow: hidden;
 }
 
-/* --- HUD Overlays --- */
-.scanlines {
-    position: absolute; inset: 0;
-    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-    background-size: 100% 4px, 3px 100%;
-    z-index: 100; pointer-events: none; opacity: 0.3;
-}
-.background-vignette {
-    position: absolute; inset: 0;
-    background: radial-gradient(circle, transparent 20%, black 100%);
-    z-index: -1;
+/* Input Styles */
+.input-module { grid-row: span 2; }
+.grid-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 30px 0; }
+
+.input-item label {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--text-dim);
+    margin-bottom: 12px;
+    text-transform: uppercase;
 }
 
-/* --- Layout --- */
-.container { width: 90%; max-width: 900px; z-index: 10; }
-header { text-align: left; margin-bottom: 20px; border-left: 4px solid var(--primary); padding-left: 20px; }
-.telemetry-bar { font-size: 0.65rem; color: var(--primary); display: flex; gap: 20px; font-family: 'Orbitron'; margin-bottom: 5px; }
-.logo { font-family: 'Orbitron'; font-size: 3rem; font-weight: 900; letter-spacing: -2px; }
-.logo span { color: var(--primary); }
-header p { opacity: 0.5; font-size: 0.8rem; letter-spacing: 2px; }
-
-/* --- Diagnostic Frame --- */
-.diagnostic-frame {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    padding: 50px;
-    position: relative;
-    box-shadow: 0 0 50px rgba(0,0,0,1);
+input[type="range"] {
+    width: 100%;
+    accent-color: var(--accent);
+    cursor: pointer;
 }
-.corner { position: absolute; width: 20px; height: 20px; border: 2px solid var(--primary); }
-.tl { top: -1px; left: -1px; border-right: none; border-bottom: none; }
-.tr { top: -1px; right: -1px; border-left: none; border-bottom: none; }
-.bl { bottom: -1px; left: -1px; border-right: none; border-top: none; }
-.br { bottom: -1px; right: -1px; border-left: none; border-top: none; }
 
-/* --- Inputs --- */
-.input-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; }
-.field label { font-size: 0.65rem; font-weight: 700; color: var(--primary); font-family: 'Orbitron'; display: block; margin-bottom: 10px; }
-.input-wrapper { position: relative; display: flex; align-items: center; }
-input {
-    width: 100%; background: #000; border: 1px solid var(--border);
-    padding: 15px; border-radius: 4px; color: white; font-family: 'Orbitron'; font-size: 1.2rem;
-}
-input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 15px rgba(255, 62, 62, 0.2); }
-.unit-tag { position: absolute; right: 15px; font-size: 0.6rem; opacity: 0.4; font-weight: 900; }
-
-/* --- Button --- */
+/* Button UI */
 button {
-    width: 100%; margin-top: 40px; padding: 25px; background: var(--primary);
-    border: none; color: white; font-family: 'Orbitron'; font-weight: 900;
-    cursor: pointer; transition: 0.3s; clip-path: polygon(5% 0, 100% 0, 95% 100%, 0% 100%);
+    width: 100%;
+    padding: 20px;
+    border-radius: 16px;
+    border: none;
+    background: white;
+    color: black;
+    font-weight: 800;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: 0.3s;
 }
-button:hover { background: #ff5e5e; letter-spacing: 2px; }
 
-/* --- Result --- */
-.result-card { margin-top: 50px; border-top: 1px solid var(--border); padding-top: 30px; }
-.result-header { display: flex; justify-content: space-between; font-size: 0.7rem; font-family: 'Orbitron'; margin-bottom: 20px; }
-.status-indicator { color: #00ff88; }
-.value-display { text-align: center; font-family: 'Orbitron'; margin-bottom: 15px; }
-#mileageNum { font-size: 6rem; font-weight: 900; line-height: 1; color: white; }
-.value-display small { font-size: 2rem; color: var(--primary); }
-.result-footer { text-align: center; font-size: 0.6rem; opacity: 0.4; letter-spacing: 3px; }
+button:hover {
+    background: var(--accent);
+    box-shadow: 0 0 30px rgba(0, 242, 255, 0.3);
+}
 
-.hidden { display: none; }
-.loader { display: none; width: 30px; height: 30px; border: 4px solid #fff; border-bottom-color: transparent; border-radius: 50%; animation: rotation 1s linear infinite; margin: 0 auto; }
-@keyframes rotation { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-button.loading .btn-text { display: none; }
-button.loading .loader { display: block; }
+/* Stats Card */
+.stats-module .mini-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    height: 60px;
+    margin: 20px 0;
+}
+
+.bar {
+    flex: 1;
+    background: linear-gradient(to top, var(--primary), var(--accent));
+    border-radius: 4px;
+    opacity: 0.6;
+}
+
+/* Result Card */
+.result-module {
+    background: linear-gradient(135deg, rgba(112, 0, 255, 0.2), rgba(0, 242, 255, 0.1));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(0, 242, 255, 0.3);
+}
+
+.result-module .value { font-size: 3.5rem; font-weight: 800; }
+.result-module .value small { font-size: 1rem; opacity: 0.5; }
+
+/* Status Pulse */
+.status-tag { font-size: 0.75rem; background: rgba(255,255,255,0.05); padding: 8px 16px; border-radius: 100px; display: flex; align-items: center; gap: 8px; }
+.pulse { width: 8px; height: 8px; background: #00ff88; border-radius: 50%; box-shadow: 0 0 10px #00ff88; animation: blink 2s infinite; }
+
+@keyframes blink { 50% { opacity: 0.3; } }
+
+@media (max-width: 768px) {
+    .bento-grid { grid-template-columns: 1fr; }
+}
