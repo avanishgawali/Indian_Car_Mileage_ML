@@ -1,40 +1,47 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, send_from_directory
 import joblib
 import os
 
-# We tell Flask to look for templates and static files in the CURRENT directory ('.')
-app = Flask(__name__, template_folder='.', static_folder='.', static_url_path='')
+# Configure Flask for flat directory structure
+app = Flask(__name__, template_folder='.', static_folder='.')
 
-# Load the saved model
-model = joblib.load('mileage_model.pkl')
+# Load the model
+MODEL_PATH = 'mileage_model.pkl'
+
+if os.path.exists(MODEL_PATH):
+    try:
+        ml_model = joblib.load(MODEL_PATH)
+        print("✅ Success: mileage_model.pkl loaded!")
+    except Exception as e:
+        print(f"❌ Error loading model: {e}")
+else:
+    print(f"❌ Critical Error: {MODEL_PATH} not found!")
 
 @app.route('/')
-def home():
-    # Now it will find index.html in your main folder
+def index():
     return render_template('index.html')
+
+@app.route('/<path:path>')
+def send_static(path):
+    return send_from_directory('.', path)
 
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
-        data = request.json
-        # Conversions
-        engine_size = float(data['cc']) / 1000
-        cylinders = float(data['cylinders'])
-        hp = float(data['hp'])
-        weight = float(data['weight']) * 2.204
-        wheelbase = float(data['wheelbase'])
-        length = float(data['length'])
-
-        features = [[engine_size, cylinders, hp, weight, wheelbase, length]]
-        prediction = model.predict(features)
-        
-        return jsonify({'mileage': round(prediction[0], 2)})
+        data = request.get_json()
+        # Order: Engine CC, Cylinders, Horsepower, Weight, Wheelbase, Length
+        features = [[
+            float(data['cc']),
+            float(data['cylinders']),
+            float(data['hp']),
+            float(data['weight']),
+            float(data['wheelbase']),
+            float(data['length'])
+        ]]
+        prediction = ml_model.predict(features)[0]
+        return jsonify({'mileage': round(prediction, 2)})
     except Exception as e:
-        return jsonify({'error': str(e)})
+        return jsonify({'error': str(e)}), 400
 
-# Integrated Start Block for Render/Deployment
-if __name__ == "__main__":
-    # Get the port from the environment, or default to 5000
-    port = int(os.environ.get("PORT", 5000))
-    # host='0.0.0.0' allows the server to be accessible externally
-    app.run(host='0.0.0.0', port=port)
+if __name__ == '__main__':
+    app.run(debug=True, port=5000)
