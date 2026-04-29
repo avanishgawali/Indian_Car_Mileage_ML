@@ -3,152 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KM DRIVEN | AI Mileage Intelligence</title>
+    <title>FuelX Pro | AI Mileage Intelligence</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 </head>
 <body>
-    <div class="scanlines"></div>
-    <div class="background-vignette"></div>
+    <div class="grain-overlay"></div>
+    
+    <div class="blob-c">
+        <div class="shape-blob one"></div>
+        <div class="shape-blob two"></div>
+    </div>
 
-    <div class="container">
-        <header>
-            <div class="telemetry-bar">
-                <span>SYSTEM: STABLE</span>
-                <span>AI_CORE: ACTIVE</span>
-                <span>V8.4.2</span>
-            </div>
-            <h1 class="logo">KM <span>DRIVEN</span></h1>
-            <p>ADVANCED VEHICLE ANALYTICS ENGINE</p>
+    <div class="dashboard">
+        <header class="hero-section">
+            <h1 class="logo">FUEL<span>X</span> PRO</h1>
+            <div class="status-tag"><span class="pulse"></span> System Live: Neural Engine v4.2</div>
         </header>
 
-        <main class="diagnostic-frame">
-            <div class="corner tl"></div><div class="corner tr"></div>
-            <div class="corner bl"></div><div class="corner br"></div>
+        <main class="bento-grid">
+            <section class="glass-card input-module">
+                <h3>Vehicle Parameters</h3>
+                <form id="predictionForm">
+                    <div class="grid-inputs">
+                        <div class="input-item">
+                            <label>Engine Capacity (<span>1200</span> CC)</label>
+                            <input type="range" id="cc" min="600" max="6000" value="1200">
+                        </div>
+                        <div class="input-item">
+                            <label>Cylinders (<span>4</span>)</label>
+                            <input type="range" id="cylinders" min="2" max="12" value="4">
+                        </div>
+                        <div class="input-item">
+                            <label>Horsepower (<span>100</span> HP)</label>
+                            <input type="range" id="hp" min="40" max="1000" value="100">
+                        </div>
+                        <div class="input-item">
+                            <label>Weight (<span>1100</span> KG)</label>
+                            <input type="range" id="weight" min="500" max="3500" value="1100">
+                        </div>
+                    </div>
+                    <button type="submit" id="predictBtn">
+                        <span class="btn-text">RUN INFERENCE</span>
+                        <div class="loader"></div>
+                    </button>
+                </form>
+            </section>
 
-            <form id="predictionForm">
-                <div class="input-grid">
-                    <div class="field">
-                        <label>ENGINE DISPLACEMENT</label>
-                        <div class="input-wrapper">
-                            <input type="number" id="cc" placeholder="1197" required>
-                            <span class="unit-tag">CC</span>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label>CYLINDER COUNT</label>
-                        <div class="input-wrapper">
-                            <input type="number" id="cylinders" placeholder="4" required>
-                            <span class="unit-tag">CYL</span>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label>PEAK POWER</label>
-                        <div class="input-wrapper">
-                            <input type="number" id="hp" placeholder="88" required>
-                            <span class="unit-tag">HP</span>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label>CURB WEIGHT</label>
-                        <div class="input-wrapper">
-                            <input type="number" id="weight" placeholder="1050" required>
-                            <span class="unit-tag">KG</span>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label>WHEELBASE</label>
-                        <div class="input-wrapper">
-                            <input type="number" id="wheelbase" placeholder="96" required>
-                            <span class="unit-tag">IN</span>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label>TOTAL LENGTH</label>
-                        <div class="input-wrapper">
-                            <input type="number" id="length" placeholder="150" required>
-                            <span class="unit-tag">IN</span>
-                        </div>
-                    </div>
+            <section class="glass-card stats-module">
+                <div class="stat-header">Model Metrics</div>
+                <div class="mini-chart">
+                    <div class="bar" style="height: 80%"></div>
+                    <div class="bar" style="height: 60%"></div>
+                    <div class="bar" style="height: 95%"></div>
+                    <div class="bar" style="height: 70%"></div>
                 </div>
+                <p>Accuracy Score: <strong>94.2%</strong></p>
+            </section>
 
-                <button type="submit" id="predictBtn">
-                    <span class="btn-text">INITIALIZE DIAGNOSTIC</span>
-                    <div class="loader"></div>
-                    <div class="btn-glitch"></div>
-                </button>
-            </form>
-
-            <div id="resultCard" class="result-card hidden">
-                <div class="result-header">
-                    <span class="status-indicator">ANALYSIS COMPLETE</span>
-                    <span class="conf-level">94.2% CONFIDENCE</span>
+            <section id="resultCard" class="glass-card result-module empty">
+                <div class="res-content">
+                    <span class="label">ESTIMATED EFFICIENCY</span>
+                    <div class="value"><span id="mileageNum">--.-</span> <small>km/l</small></div>
                 </div>
-                <div class="result-body">
-                    <div class="value-display">
-                        <span id="mileageNum">00.0</span>
-                        <small>KM/L</small>
-                    </div>
-                </div>
-                <div class="result-footer">
-                    INDIAN STANDARD MILEAGE PREDICTION [EST]
-                </div>
-            </div>
+            </section>
         </main>
     </div>
 
     <script>
-        // Logic remains identical to original for backend compatibility
-        gsap.from(".diagnostic-frame", { scale: 0.95, opacity: 0, duration: 1, ease: "power4.out" });
-        gsap.from(".field", { y: 20, opacity: 0, stagger: 0.05, delay: 0.3 });
-
-        document.getElementById('predictionForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const btn = document.getElementById('predictBtn');
-            const resultCard = document.getElementById('resultCard');
-            
-            btn.classList.add('loading');
-            
-            const formData = {
-                cc: document.getElementById('cc').value,
-                cylinders: document.getElementById('cylinders').value,
-                hp: document.getElementById('hp').value,
-                weight: document.getElementById('weight').value,
-                wheelbase: document.getElementById('wheelbase').value,
-                length: document.getElementById('length').value
-            };
-
-            try {
-                const response = await fetch('/predict', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify(formData)
-                });
-                const result = await response.json();
-                
-                btn.classList.remove('loading');
-                
-                if(result.mileage) {
-                    resultCard.classList.remove('hidden');
-                    gsap.fromTo("#resultCard", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 });
-                    
-                    let obj = { val: 0 };
-                    gsap.to(obj, {
-                        val: result.mileage,
-                        duration: 2,
-                        ease: "expo.out",
-                        onUpdate: () => {
-                            document.getElementById('mileageNum').innerText = obj.val.toFixed(2);
-                        }
-                    });
-                }
-            } catch (err) {
-                console.error(err);
-                btn.classList.remove('loading');
+        // Update range labels dynamically
+        document.querySelectorAll('input[type="range"]').forEach(input => {
+            input.oninput = function() {
+                this.previousElementSibling.querySelector('span').innerText = this.value;
             }
         });
+
+        // Animations
+        gsap.from(".glass-card", { opacity: 0, scale: 0.9, duration: 0.8, stagger: 0.2, ease: "expo.out" });
     </script>
 </body>
 </html>
